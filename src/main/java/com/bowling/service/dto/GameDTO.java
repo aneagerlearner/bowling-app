@@ -1,7 +1,5 @@
 package com.bowling.service.dto;
 
-import javax.persistence.Id;
-
 /**
  * A DTO representing a Game
  */

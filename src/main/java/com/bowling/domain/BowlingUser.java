@@ -41,7 +41,6 @@ public class BowlingUser implements Serializable {
     @JsonIgnoreProperties("bowlingUsers")
     private Game game;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
     }
