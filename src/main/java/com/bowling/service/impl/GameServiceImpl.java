@@ -12,10 +12,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bowling.domain.BowlingUser;
+import com.bowling.domain.Frame;
 import com.bowling.domain.Game;
 import com.bowling.repository.GameRepository;
 import com.bowling.service.GameService;
 import com.bowling.service.dto.BowlingUserDTO;
+import com.bowling.service.dto.FrameDTO;
 import com.bowling.service.dto.GameDTO;
 
 /**
@@ -69,18 +71,20 @@ public class GameServiceImpl implements GameService {
 	@Override
 	@Transactional(readOnly = true)
 	public GameDTO findOne(Long id) {
-		log.debug("Request to get Game : {}", id);
+		log.info("Request to get Game : {}", id);
 		Optional<Game> gameDetails = gameRepository.findById(id);
-		log.info("gameDetails", gameDetails.toString());
+		log.debug("gameDetails", gameDetails.toString());
 		GameDTO gameResponse = modelMapper.map(gameDetails, GameDTO.class);
 
 		Set<BowlingUser> users = gameDetails.get().getBowlingUsers();
 		Integer maxScore = 0;
 		BowlingUser winner = null;
         BowlingUserDTO userDTO = new BowlingUserDTO();
-        //FrameDTO frameDTO = new FrameDTO();
+        FrameDTO frameDTO = new FrameDTO();
 
+        Set<Frame> frames;
 
+		log.info("Iterating on the user object to find the highest score");
 		for (BowlingUser user : users) {
 			if (user.getScore() > maxScore) {
 				winner = user;
@@ -89,26 +93,28 @@ public class GameServiceImpl implements GameService {
 		}
 		
 		if (winner != null) {
-            System.out.println("Name : " + winner.getName());
-            System.out.println("Score : " + winner.getScore());
-            System.out.println("ID : " + winner.getId());
+			log.info("Name : " + winner.getName() + "Score : " + winner.getScore() + "ID : " + winner.getId());
     		userDTO.setName(winner.getName());
     		userDTO.setId(winner.getId());
     		userDTO.setScore(winner.getScore());
     		userDTO.setPaymentType(winner.getPaymentType());
     		userDTO.setMaxScore(winner.getMaxScore());
-            System.out.println("userDTO" + userDTO.getFrame());
-//
-//    		frameDTO.setId(userDTO.getFrame().getId());
-//    		frameDTO.setIsSpare(userDTO.getFrame().getIsSpare());
-//    		frameDTO.setIsStrike(userDTO.getFrame().getIsStrike());
-//    		frameDTO.setNoOfRolls(userDTO.getFrame().getNoOfRolls());
-//    		userDTO.setFrame(frameDTO);
+            frames = winner.getFrames();
+            for(Frame frame: frames) {
+            	frameDTO.setId(frame.getId());
+            	frameDTO.setIsSpare(frame.isIsSpare());
+            	frameDTO.setIsStrike(frame.isIsStrike());
+            	frameDTO.setNoOfRolls(frame.getNoOfRolls());
+            	frameDTO.setScore(frame.getScore());
+            }
+            userDTO.setFrame(frameDTO);
 		}
 		gameResponse.setId(gameDetails.get().getId());
 		gameResponse.setAlleyNo(gameDetails.get().getAlleyNo());
 		gameResponse.setNoOfPlayers(gameDetails.get().getNoOfPlayers());
 		gameResponse.setUser(userDTO);	
+		log.info("Game details of a user having highest score", gameResponse);
+
 		return gameResponse;
 	}
 
