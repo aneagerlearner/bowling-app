@@ -3,7 +3,7 @@ package com.bowling.service;
 import java.util.List;
 
 import com.bowling.domain.Game;
-import com.bowling.service.dto.GameDTO;
+import com.bowling.dto.GameDTO;
 
 public interface GameService {
 

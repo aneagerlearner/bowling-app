@@ -1,8 +1,9 @@
 package com.bowling.repository;
 
-import com.bowling.domain.Frame;
-import org.springframework.data.jpa.repository.*;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import com.bowling.domain.Frame;
 
 
 @SuppressWarnings("unused")
