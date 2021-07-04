@@ -63,7 +63,7 @@ public class GameServiceImpl implements GameService {
 	}
 
 	/**
-	 * Get one game by id.
+	 * This method returns the details of the user with maximum score
 	 *
 	 * @param id the id of the entity.
 	 * @return the entity.
@@ -75,7 +75,6 @@ public class GameServiceImpl implements GameService {
 		Optional<Game> gameDetails = gameRepository.findById(id);
 		log.debug("gameDetails", gameDetails.toString());
 		GameDTO gameResponse = modelMapper.map(gameDetails, GameDTO.class);
-
 		Set<BowlingUser> users = gameDetails.get().getBowlingUsers();
 		Integer maxScore = 0;
 		BowlingUser winner = null;
@@ -100,6 +99,7 @@ public class GameServiceImpl implements GameService {
     		userDTO.setPaymentType(winner.getPaymentType());
     		userDTO.setMaxScore(winner.getMaxScore());
             frames = winner.getFrames();
+            //Iterating on frame object to update the user details
             for(Frame frame: frames) {
             	frameDTO.setId(frame.getId());
             	frameDTO.setIsSpare(frame.isIsSpare());
@@ -109,6 +109,7 @@ public class GameServiceImpl implements GameService {
             }
             userDTO.setFrame(frameDTO);
 		}
+		//Update the game response with user and frame details
 		gameResponse.setId(gameDetails.get().getId());
 		gameResponse.setAlleyNo(gameDetails.get().getAlleyNo());
 		gameResponse.setNoOfPlayers(gameDetails.get().getNoOfPlayers());
