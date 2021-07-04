@@ -1,4 +1,4 @@
-package com.bowling.service.dto;
+package com.bowling.dto;
 
 public class FrameDTO {
 
@@ -13,6 +13,14 @@ public class FrameDTO {
 
 	private Integer score;
 
+	private FrameDTO(Builder builder) {
+		this.id = builder.id;
+		this.isStrike = builder.isStrike;
+		this.isSpare = builder.isSpare;
+		this.noOfRolls = builder.noOfRolls;
+		this.score = builder.score;
+	}
+
 	public FrameDTO(Long id, Boolean isStrike, Boolean isSpare, Integer noOfRolls, Integer score) {
 		super();
 		this.id = id;
@@ -24,7 +32,6 @@ public class FrameDTO {
 
 	public FrameDTO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Long getId() {
@@ -71,6 +78,50 @@ public class FrameDTO {
 	public String toString() {
 		return "FrameDTO [id=" + id + ", isStrike=" + isStrike + ", isSpare=" + isSpare + ", noOfRolls=" + noOfRolls
 				+ ", score=" + score + "]";
+	}
+
+	public static Builder builder() {
+		return new Builder();
+	}
+
+	public static final class Builder {
+		private Long id;
+		private Boolean isStrike;
+		private Boolean isSpare;
+		private Integer noOfRolls;
+		private Integer score;
+
+		private Builder() {
+		}
+
+		public Builder withId(Long id) {
+			this.id = id;
+			return this;
+		}
+
+		public Builder withIsStrike(Boolean isStrike) {
+			this.isStrike = isStrike;
+			return this;
+		}
+
+		public Builder withIsSpare(Boolean isSpare) {
+			this.isSpare = isSpare;
+			return this;
+		}
+
+		public Builder withNoOfRolls(Integer noOfRolls) {
+			this.noOfRolls = noOfRolls;
+			return this;
+		}
+
+		public Builder withScore(Integer score) {
+			this.score = score;
+			return this;
+		}
+
+		public FrameDTO build() {
+			return new FrameDTO(this);
+		}
 	}
 	
 

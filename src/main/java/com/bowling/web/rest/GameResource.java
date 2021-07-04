@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bowling.domain.Game;
+import com.bowling.dto.GameDTO;
 import com.bowling.service.GameService;
-import com.bowling.service.dto.GameDTO;
 
 @RestController
 @RequestMapping("/api")

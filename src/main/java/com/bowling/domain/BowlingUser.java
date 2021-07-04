@@ -8,9 +8,6 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * A BowlingUser.
- */
 @Entity
 @Table(name = "bowling_user")
 public class BowlingUser implements Serializable {
@@ -138,7 +135,6 @@ public class BowlingUser implements Serializable {
     public void setGame(Game game) {
         this.game = game;
     }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {

@@ -5,9 +5,6 @@ import javax.persistence.*;
 
 import java.io.Serializable;
 
-/**
- * A Frame.
- */
 @Entity
 @Table(name = "frame")
 public class Frame implements Serializable {
@@ -106,7 +103,6 @@ public class Frame implements Serializable {
     public void setBowlingUser(BowlingUser bowlingUser) {
         this.bowlingUser = bowlingUser;
     }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {
