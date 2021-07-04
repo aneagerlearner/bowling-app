@@ -38,7 +38,6 @@ public class Game implements Serializable {
     @OneToMany(mappedBy = "game")
     private Set<BowlingUser> bowlingUsers = new HashSet<>();
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
     }
